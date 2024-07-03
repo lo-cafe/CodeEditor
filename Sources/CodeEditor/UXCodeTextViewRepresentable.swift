@@ -254,7 +254,8 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         textView.allowsUndo         = allowsUndo
         //      textView.textContainerInset = .init(width: 0, height: inset.width)
         if #available(macOS 11.0, *) {
-            textView.safeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
+            print(124)
+            textView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
         }
         textView.textContainer?.lineFragmentPadding = inset.width * 2
       textView.bottomOverscroll = bottomOverscroll
