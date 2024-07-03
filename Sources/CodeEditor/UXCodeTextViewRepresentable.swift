@@ -254,11 +254,11 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         textView.allowsUndo         = allowsUndo
         //      textView.textContainerInset = .init(width: 0, height: inset.width)
         if #available(macOS 11.0, *) {
-            print(1245)
             textView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
         }
         textView.textContainer?.lineFragmentPadding = inset.width * 2
-      textView.bottomOverscroll = bottomOverscroll
+        textView.topPad = inset.height
+      textView.botPad = bottomOverscroll
 
       let scrollView = NSScrollView()
       scrollView.hasVerticalScroller = hasVerticalScroller
@@ -283,7 +283,6 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         textView.textContainer?.lineFragmentPadding = inset.width * 2
 //        textView.scrollViewDidResize(scrollView)
         if #available(macOS 11.0, *) {
-            print(1245)
             textView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
         }
         scrollView.hasVerticalScroller = hasVerticalScroller
