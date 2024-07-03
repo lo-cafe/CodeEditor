@@ -33,14 +33,14 @@ final class UXCodeTextView: UXTextView {
     
     public func scrollViewDidResize(_ scrollView: NSScrollView) {
         let offset = floor((scrollView.bounds.height - bottomOverscroll) / 2) - 1
-        self.textContainerInset = NSSize(width: 0, height: offset)
+        self.textContainerInset = NSSize(width: 0, height: bottomOverscroll / 2)
         overscrollY = offset
     }
     
     public override var textContainerOrigin: NSPoint {
         return super
             .textContainerOrigin
-            .applying(.init(translationX: 0, y: -overscrollY))
+            .applying(.init(translationX: 0, y: -(bottomOverscroll / 2)))
     }
   
   fileprivate let highlightr = Highlightr()
