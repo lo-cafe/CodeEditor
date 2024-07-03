@@ -242,7 +242,8 @@ public struct CodeEditor: View {
               allowsUndo     : Bool                          = true,
               autoscroll     : Bool                          = true,
               backgroundColor: NSColor?                      = nil,
-              bottomOverscroll: CGFloat = 10)
+              bottomOverscroll: CGFloat = 10,
+              hasVerticalScroller: Bool = true)
   {
     self.source           = source
     self.selection        = selection
@@ -259,6 +260,7 @@ public struct CodeEditor: View {
     self.autoscroll       = autoscroll
     self.backgroundColor  = backgroundColor
     self.bottomOverscroll  = bottomOverscroll
+      self.hasVerticalScroller = hasVerticalScroller
   }
   
   /**
@@ -297,7 +299,8 @@ public struct CodeEditor: View {
               inset          : CGSize?              = nil,
               allowsUndo     : Bool                 = true,
               backgroundColor: NSColor?             = nil,
-              bottomOverscroll: CGFloat = 10)
+              bottomOverscroll: CGFloat = 10,
+              hasVerticalScroller: Bool = true)
   {
     assert(!flags.contains(.editable), "Editing requires a Binding")
     self.init(source         : .constant(source),
@@ -310,7 +313,8 @@ public struct CodeEditor: View {
               inset          : inset,
               allowsUndo     : allowsUndo,
               backgroundColor: backgroundColor,
-              bottomOverscroll: bottomOverscroll)
+              bottomOverscroll: bottomOverscroll,
+              hasVerticalScroller: hasVerticalScroller)
   }
   
   private var source           : Binding<String>
@@ -326,6 +330,7 @@ public struct CodeEditor: View {
   private let autoscroll       : Bool
   private let backgroundColor  : NSColor?
     public var bottomOverscroll: CGFloat = 10
+    public var hasVerticalScroller = true
 
   public var body: some View {
     UXCodeTextViewRepresentable(source         : source,
@@ -340,7 +345,8 @@ public struct CodeEditor: View {
                                 allowsUndo     : allowsUndo,
                                 autoscroll     : autoscroll,
                                 backgroundColor: backgroundColor,
-                                bottomOverscroll: bottomOverscroll)
+                                bottomOverscroll: bottomOverscroll,
+                                hasVerticalScroller: hasVerticalScroller)
   }
 }
 

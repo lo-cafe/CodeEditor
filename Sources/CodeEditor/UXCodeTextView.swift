@@ -33,7 +33,8 @@ final class UXCodeTextView: UXTextView {
     
     public func scrollViewDidResize(_ scrollView: NSScrollView) {
         let offset = floor((scrollView.bounds.height - bottomOverscroll) / 2) - 1
-        textContainerInset = NSSize(width: 0, height: offset)
+        print("moa")
+        self.textContainerInset = NSSize(width: 0, height: 400)
         overscrollY = offset
     }
     

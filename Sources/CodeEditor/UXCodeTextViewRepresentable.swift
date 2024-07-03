@@ -57,7 +57,8 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
               allowsUndo     : Bool,
               autoscroll     : Bool,
               backgroundColor: NSColor? = nil,
-              bottomOverscroll: CGFloat = 0)
+              bottomOverscroll: CGFloat = 0,
+              hasVerticalScroller: Bool = true)
   {
     self.source                = source
     self.selection             = selection
@@ -72,6 +73,7 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
     self.autoscroll            = autoscroll
     self.customBackgroundColor = backgroundColor
     self.bottomOverscroll = bottomOverscroll
+    self.hasVerticalScroller = hasVerticalScroller
   }
     
   private var source                 : Binding<String>
@@ -87,6 +89,7 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
   private let autoPairs              : [ String : String ]
   private let autoscroll             : Bool
   public var bottomOverscroll: CGFloat = 10
+  public var hasVerticalScroller = true
     
 
 
@@ -257,8 +260,9 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
       textView.bottomOverscroll = bottomOverscroll
 
       let scrollView = NSScrollView()
-      scrollView.hasVerticalScroller = true
+      scrollView.hasVerticalScroller = hasVerticalScroller
       scrollView.documentView = textView
+        textView.scrollViewDidResize(scrollView)
       
       updateTextView(textView)
       return scrollView
@@ -269,13 +273,14 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         assertionFailure("unexpected text view")
         return
       }
-        textView.scrollViewDidResize(scrollView)
       if textView.delegate !== context.coordinator {
         textView.delegate = context.coordinator
       }
       textView.customBackgroundColor = customBackgroundColor
 //      textView.textContainerInset = inset
       textView.bottomOverscroll = bottomOverscroll
+//        textView.scrollViewDidResize(scrollView)
+        scrollView.hasVerticalScroller = hasVerticalScroller
       updateTextView(textView)
     }
   #else // iOS etc
