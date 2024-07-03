@@ -250,20 +250,19 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
       let textView = UXCodeTextView()
       textView.customBackgroundColor = customBackgroundColor
       textView.autoresizingMask   = [ .width, .height ]
-      textView.delegate           = context.coordinator
+        textView.delegate           = context.coordinator
         textView.allowsUndo         = allowsUndo
-        //      textView.textContainerInset = .init(width: 0, height: inset.width)
-        if #available(macOS 11.0, *) {
-            textView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
-        }
         textView.textContainer?.lineFragmentPadding = inset.width * 2
         textView.topPad = inset.height
-      textView.botPad = bottomOverscroll
+        textView.botPad = bottomOverscroll
 
       let scrollView = NSScrollView()
       scrollView.hasVerticalScroller = hasVerticalScroller
       scrollView.documentView = textView
-        textView.scrollViewDidResize(scrollView)
+        if #available(macOS 11.0, *) {
+            scrollView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
+        }
+//        textView.scrollViewDidResize(scrollView)
       
       updateTextView(textView)
       return scrollView
@@ -279,13 +278,13 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
       }
       textView.customBackgroundColor = customBackgroundColor
 //      textView.textContainerInset = inset
-        textView.topPad = inset.height
-      textView.botPad = bottomOverscroll
-        textView.textContainer?.lineFragmentPadding = inset.width * 2
-//        textView.scrollViewDidResize(scrollView)
+//        textView.topPad = inset.height
+//      textView.botPad = bottomOverscroll
         if #available(macOS 11.0, *) {
-            textView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
+            scrollView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
         }
+        textView.textContainer?.lineFragmentPadding = inset.width * 2
+        textView.scrollViewDidResize(scrollView)
         scrollView.hasVerticalScroller = hasVerticalScroller
       updateTextView(textView)
     }

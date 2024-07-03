@@ -32,13 +32,13 @@ final class UXCodeTextView: UXTextView {
     public var topPad : CGFloat = 0
     
     public func scrollViewDidResize(_ scrollView: NSScrollView) {
-        self.textContainerInset = NSSize(width: 0, height: (botPad + topPad) / 2)
+        self.textContainerInset = NSSize(width: 0, height: botPad / 2)
     }
     
     public override var textContainerOrigin: NSPoint {
         return super
             .textContainerOrigin
-            .applying(.init(translationX: 0, y: -(((botPad + topPad) / 2) - topPad)))
+            .applying(.init(translationX: 0, y: -(botPad / 2)))
     }
   
   fileprivate let highlightr = Highlightr()
