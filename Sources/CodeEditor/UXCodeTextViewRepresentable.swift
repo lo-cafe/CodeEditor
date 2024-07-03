@@ -248,9 +248,12 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
       textView.customBackgroundColor = customBackgroundColor
       textView.autoresizingMask   = [ .width, .height ]
       textView.delegate           = context.coordinator
-      textView.allowsUndo         = allowsUndo
-      textView.textContainerInset = .init(width: 0, height: inset.width)
-      textView.textContainer?.lineFragmentPadding = inset.width * 2
+        textView.allowsUndo         = allowsUndo
+        //      textView.textContainerInset = .init(width: 0, height: inset.width)
+        if #available(macOS 11.0, *) {
+            textView.additionalSafeAreaInsets = .init(top: inset.height, left: 0, bottom: inset.height, right: 0)
+        }
+        textView.textContainer?.lineFragmentPadding = inset.width * 2
       textView.bottomOverscroll = bottomOverscroll
 
       let scrollView = NSScrollView()
@@ -266,6 +269,7 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         assertionFailure("unexpected text view")
         return
       }
+        textView.scrollViewDidResize(scrollView)
       if textView.delegate !== context.coordinator {
         textView.delegate = context.coordinator
       }
