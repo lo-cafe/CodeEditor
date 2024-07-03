@@ -27,6 +27,21 @@ import Highlightr
  * Currently pretty tightly coupled to `CodeEditor`.
  */
 final class UXCodeTextView: UXTextView {
+    
+    public var bottomOverscroll: CGFloat = 10
+    private var overscrollY: CGFloat = 0
+    
+    public func scrollViewDidResize(_ scrollView: NSScrollView) {
+        let offset = floor((scrollView.bounds.height - bottomOverscroll) / 2) - 1
+        textContainerInset = NSSize(width: 0, height: offset)
+        overscrollY = offset
+    }
+    
+    public override var textContainerOrigin: NSPoint {
+        return super
+            .textContainerOrigin
+            .applying(.init(translationX: 0, y: -overscrollY))
+    }
   
   fileprivate let highlightr = Highlightr()
     

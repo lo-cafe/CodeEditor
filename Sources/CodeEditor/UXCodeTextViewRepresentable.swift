@@ -56,7 +56,8 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
               inset          : CGSize,
               allowsUndo     : Bool,
               autoscroll     : Bool,
-              backgroundColor: NSColor? = nil)
+              backgroundColor: NSColor? = nil,
+              bottomOverscroll: CGFloat = 0)
   {
     self.source                = source
     self.selection             = selection
@@ -70,6 +71,7 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
     self.allowsUndo            = allowsUndo
     self.autoscroll            = autoscroll
     self.customBackgroundColor = backgroundColor
+    self.bottomOverscroll = bottomOverscroll
   }
     
   private var source                 : Binding<String>
@@ -84,6 +86,9 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
   private let allowsUndo             : Bool
   private let autoPairs              : [ String : String ]
   private let autoscroll             : Bool
+  public var bottomOverscroll: CGFloat = 10
+    
+
 
   // The inner `value` is true, exactly when execution is inside
   // the `updateTextView(_:)` method. The `Coordinator` can use this
@@ -244,7 +249,9 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
       textView.autoresizingMask   = [ .width, .height ]
       textView.delegate           = context.coordinator
       textView.allowsUndo         = allowsUndo
-      textView.textContainerInset = inset
+      textView.textContainerInset = .init(width: 0, height: inset.width)
+      textView.textContainer?.lineFragmentPadding = inset.width * 2
+      textView.bottomOverscroll = bottomOverscroll
 
       let scrollView = NSScrollView()
       scrollView.hasVerticalScroller = true
@@ -264,6 +271,7 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
       }
       textView.customBackgroundColor = customBackgroundColor
       textView.textContainerInset = inset
+      textView.bottomOverscroll = bottomOverscroll
       updateTextView(textView)
     }
   #else // iOS etc
