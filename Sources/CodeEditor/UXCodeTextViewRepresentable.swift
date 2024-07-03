@@ -274,7 +274,7 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
         textView.delegate = context.coordinator
       }
       textView.customBackgroundColor = customBackgroundColor
-      textView.textContainerInset = inset
+//      textView.textContainerInset = inset
       textView.bottomOverscroll = bottomOverscroll
       updateTextView(textView)
     }
