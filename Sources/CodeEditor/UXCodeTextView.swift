@@ -38,7 +38,7 @@ final class UXCodeTextView: UXTextView {
     public override var textContainerOrigin: NSPoint {
         return super
             .textContainerOrigin
-            .applying(.init(translationX: 0, y: -((botPad + topPad) / 2) - topPad))
+            .applying(.init(translationX: 0, y: -((botPad + topPad) / 2)))
     }
   
   fileprivate let highlightr = Highlightr()
