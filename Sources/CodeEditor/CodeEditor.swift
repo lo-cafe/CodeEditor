@@ -241,7 +241,8 @@ public struct CodeEditor: View {
               inset          : CGSize?                       = nil,
               allowsUndo     : Bool                          = true,
               autoscroll     : Bool                          = true,
-              backgroundColor: NSColor?                      = nil)
+              backgroundColor: NSColor?                      = nil,
+              bottomOverscroll: CGFloat = 10)
   {
     self.source           = source
     self.selection        = selection
@@ -257,6 +258,7 @@ public struct CodeEditor: View {
     self.allowsUndo       = allowsUndo
     self.autoscroll       = autoscroll
     self.backgroundColor  = backgroundColor
+    self.bottomOverscroll  = bottomOverscroll
   }
   
   /**
@@ -294,7 +296,8 @@ public struct CodeEditor: View {
               autoPairs      : [ String : String ]? = nil,
               inset          : CGSize?              = nil,
               allowsUndo     : Bool                 = true,
-              backgroundColor: NSColor?             = nil)
+              backgroundColor: NSColor?             = nil,
+              bottomOverscroll: CGFloat = 10)
   {
     assert(!flags.contains(.editable), "Editing requires a Binding")
     self.init(source         : .constant(source),
@@ -306,7 +309,8 @@ public struct CodeEditor: View {
               autoPairs      : autoPairs,
               inset          : inset,
               allowsUndo     : allowsUndo,
-              backgroundColor: backgroundColor)
+              backgroundColor: backgroundColor,
+              bottomOverscroll: bottomOverscroll)
   }
   
   private var source           : Binding<String>
@@ -321,6 +325,7 @@ public struct CodeEditor: View {
   private let allowsUndo       : Bool
   private let autoscroll       : Bool
   private let backgroundColor  : NSColor?
+    public var bottomOverscroll: CGFloat = 10
 
   public var body: some View {
     UXCodeTextViewRepresentable(source         : source,
@@ -334,7 +339,8 @@ public struct CodeEditor: View {
                                 inset          : inset,
                                 allowsUndo     : allowsUndo,
                                 autoscroll     : autoscroll,
-                                backgroundColor: backgroundColor)
+                                backgroundColor: backgroundColor,
+                                bottomOverscroll: bottomOverscroll)
   }
 }
 
