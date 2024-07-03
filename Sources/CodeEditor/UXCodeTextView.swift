@@ -29,19 +29,16 @@ import Highlightr
 final class UXCodeTextView: UXTextView {
     
     public var bottomOverscroll: CGFloat = 10
-//    private var overscrollY: CGFloat = 0
     
     public func scrollViewDidResize(_ scrollView: NSScrollView) {
-//        let offset = floor((scrollView.bounds.height - bottomOverscroll) / 2) - 1
-        self.textContainerInset = NSSize(width: 0, height: bottomOverscroll / 2)
-//        overscrollY = offset
+//        self.textContainerInset = NSSize(width: 0, height: bottomOverscroll / 2)
     }
     
-    public override var textContainerOrigin: NSPoint {
-        return super
-            .textContainerOrigin
-            .applying(.init(translationX: 0, y: -(bottomOverscroll / 2)))
-    }
+//    public override var textContainerOrigin: NSPoint {
+//        return super
+//            .textContainerOrigin
+//            .applying(.init(translationX: 0, y: -(bottomOverscroll / 2)))
+//    }
   
   fileprivate let highlightr = Highlightr()
     
