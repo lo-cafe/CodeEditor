@@ -279,7 +279,8 @@ struct UXCodeTextViewRepresentable : UXViewRepresentable {
       }
       textView.customBackgroundColor = customBackgroundColor
 //      textView.textContainerInset = inset
-      textView.bottomOverscroll = bottomOverscroll
+        textView.topPad = inset.height
+      textView.botPad = bottomOverscroll
         textView.textContainer?.lineFragmentPadding = inset.width * 2
 //        textView.scrollViewDidResize(scrollView)
         if #available(macOS 11.0, *) {
